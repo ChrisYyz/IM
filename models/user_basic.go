@@ -1,6 +1,7 @@
 package models
 
 import (
+	"IM/utils"
 	"fmt"
 	"time"
 
@@ -31,6 +32,7 @@ func (table *UserBasic) TableName() string {
 
 func GetUserList() []*UserBasic {
 	data := make([]*UserBasic, 10)
+	utils.DB.Find(&data)
 	for _, v := range data {
 		fmt.Println(v)
 	}

@@ -1,8 +1,12 @@
 # IM - Instant Messaging System / Go
 Study Project
 
-Skill sets tracing:
- - FrontEnd:
+Notes:
+ - gin
+   Web framework: handle HTTP requests.
+ - gorm
+   for now, use to connect the database
+ - mysql APIs
 
- - BackEnd:
- gin, gorm, mySQL
+ - swagger
+ Frontend. Currently allow swagger to call GetIndex, GetUserList
