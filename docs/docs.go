@@ -30,11 +30,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/CreateUser": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Add New User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User Name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter password",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter password again",
+                        "name": "rePassword",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\", \"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/user/GetUserList": {
             "get": {
                 "tags": [
-                    "HomePage"
+                    "User"
                 ],
+                "summary": "All Users",
                 "responses": {
                     "200": {
                         "description": "code\", \"message\"}",

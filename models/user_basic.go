@@ -17,9 +17,9 @@ type UserBasic struct {
 	Identity      string
 	ClientIp      string
 	ClientPort    string
-	LoginTime     time.Time
-	HeartbeatTime time.Time
-	LogoutTime    time.Time
+	LoginTime     *time.Time
+	HeartbeatTime *time.Time
+	LogoutTime    *time.Time
 	IsLogout      bool
 	DeviceInfo    string
 
@@ -37,4 +37,8 @@ func GetUserList() []*UserBasic {
 		fmt.Println(v)
 	}
 	return data
+}
+
+func CreateUser(user UserBasic) *gorm.DB {
+	return utils.DB.Create(&user)
 }

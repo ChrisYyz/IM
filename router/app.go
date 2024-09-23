@@ -11,11 +11,12 @@ import (
 )
 
 func Router() *gin.Engine {
-	router := gin.Default()
+	router := gin.Default() // Logger and Recovery middleware already attached
 	docs.SwaggerInfo.BasePath = ""
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // router.Handle("GET"...), regiser handler
 
 	router.GET("/index", service.GetIndex)
 	router.GET("/user/GetUserList", service.GetUserList)
+	router.GET("/user/CreateUser", service.CreateUser)
 	return router
 }

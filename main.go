@@ -9,5 +9,5 @@ func main() {
 	utils.InitConfig()
 	utils.InitMySQL()
 	router := router.Router()
-	router.Run()
+	router.Run(":8080")
 }

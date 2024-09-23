@@ -10,6 +10,29 @@ paths:
             type: string
       tags:
       - HomePage
+  /user/CreateUser:
+    get:
+      parameters:
+      - description: User Name
+        in: query
+        name: name
+        type: string
+      - description: Enter password
+        in: query
+        name: password
+        type: string
+      - description: Enter password again
+        in: query
+        name: rePassword
+        type: string
+      responses:
+        "200":
+          description: code", "message"}
+          schema:
+            type: string
+      summary: Add New User
+      tags:
+      - User
   /user/GetUserList:
     get:
       responses:
@@ -17,6 +40,7 @@ paths:
           description: code", "message"}
           schema:
             type: string
+      summary: All Users
       tags:
-      - HomePage
+      - User
 swagger: "2.0"

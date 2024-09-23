@@ -2,10 +2,14 @@ package utils
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"time"
 
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB //singleton
@@ -21,7 +25,15 @@ func InitConfig() {
 }
 
 func InitMySQL() {
-	temp, err := gorm.Open(mysql.Open(viper.GetString("mysql.DNS")), &gorm.Config{})
+	dbLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // print to console
+		logger.Config{
+			SlowThreshold: time.Second,
+			LogLevel:      logger.Info,
+			Colorful:      true,
+		},
+	)
+	temp, err := gorm.Open(mysql.Open(viper.GetString("mysql.DNS")), &gorm.Config{Logger: dbLogger})
 	DB = temp
 	if err != nil {
 		fmt.Println(err)
