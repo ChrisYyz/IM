@@ -40,19 +40,43 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "User Name",
-                        "name": "name",
+                        "name": "Name",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "Enter password",
-                        "name": "password",
+                        "name": "Password",
                         "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "Enter password again",
                         "name": "rePassword",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "code\", \"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/DeleteUser": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete Exist User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deleted ID",
+                        "name": "id",
                         "in": "query"
                     }
                 ],

@@ -15,11 +15,11 @@ paths:
       parameters:
       - description: User Name
         in: query
-        name: name
+        name: Name
         type: string
       - description: Enter password
         in: query
-        name: password
+        name: Password
         type: string
       - description: Enter password again
         in: query
@@ -31,6 +31,21 @@ paths:
           schema:
             type: string
       summary: Add New User
+      tags:
+      - User
+  /user/DeleteUser:
+    get:
+      parameters:
+      - description: Deleted ID
+        in: query
+        name: id
+        type: string
+      responses:
+        "200":
+          description: code", "message"}
+          schema:
+            type: string
+      summary: Delete Exist User
       tags:
       - User
   /user/GetUserList:
