@@ -40,6 +40,7 @@ func CreateUser(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"message": "Password mismatch!",
 		})
+		return
 	}
 	user.Password = password
 	models.CreateUser(user)
@@ -67,5 +68,31 @@ func DeleteUser(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{
 		"message": "User deleted!",
+	})
+}
+
+// UpdateUser
+// @Summary Update User Information
+// @Tags User
+// @Param id formData string false "id"
+// @Param Name formData string false "Name"
+// @Param Password formData string false "Password"
+// @Success 200 {string} json{"code", "message"}
+// @Router /user/UpdateUser [post]
+func UpdateUser(c *gin.Context) {
+	user := models.UserBasic{}
+	id, _ := strconv.Atoi(c.PostForm("id"))
+	user.ID = uint(id)
+	user.Name = c.PostForm("Name")
+	user.Password = c.PostForm("Password")
+	ret := models.UpdateUser(user)
+	if ret.Error != nil {
+		c.JSON(400, gin.H{
+			"message": ret.Error,
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": "User updated!",
 	})
 }

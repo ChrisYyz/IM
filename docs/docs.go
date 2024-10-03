@@ -15,21 +15,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/index": {
-            "get": {
-                "tags": [
-                    "HomePage"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/user/CreateUser": {
             "get": {
                 "tags": [
@@ -96,6 +81,42 @@ const docTemplate = `{
                     "User"
                 ],
                 "summary": "All Users",
+                "responses": {
+                    "200": {
+                        "description": "code\", \"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/UpdateUser": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User Information",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "Name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "Password",
+                        "in": "formData"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "code\", \"message\"}",

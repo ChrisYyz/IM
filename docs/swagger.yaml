@@ -1,15 +1,6 @@
 info:
   contact: {}
 paths:
-  /index:
-    get:
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-      tags:
-      - HomePage
   /user/CreateUser:
     get:
       parameters:
@@ -56,6 +47,29 @@ paths:
           schema:
             type: string
       summary: All Users
+      tags:
+      - User
+  /user/UpdateUser:
+    post:
+      parameters:
+      - description: id
+        in: formData
+        name: id
+        type: string
+      - description: Name
+        in: formData
+        name: Name
+        type: string
+      - description: Password
+        in: formData
+        name: Password
+        type: string
+      responses:
+        "200":
+          description: code", "message"}
+          schema:
+            type: string
+      summary: Update User Information
       tags:
       - User
 swagger: "2.0"

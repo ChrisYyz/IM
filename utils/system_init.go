@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB //singleton
+var DB *gorm.DB
 
 func InitConfig() {
 	viper.SetConfigName("app")
