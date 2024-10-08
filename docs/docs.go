@@ -24,8 +24,20 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "User Name",
+                        "description": "Name",
                         "name": "Name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Mobile number",
+                        "name": "Phone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "Email",
                         "in": "query"
                     },
                     {
@@ -114,6 +126,18 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Password",
                         "name": "Password",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Phone",
+                        "name": "Phone",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "Email",
                         "in": "formData"
                     }
                 ],

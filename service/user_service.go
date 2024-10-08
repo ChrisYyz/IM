@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,8 +15,8 @@ import (
 // @Success 200 {string} json{"code", "message"}
 // @Router /user/GetUserList [get]
 func GetUserList(c *gin.Context) {
-	data := make([]*models.UserBasic, 10)
-	data = models.GetUserList()
+	// data := make([]*models.UserBasic, 10)
+	data := models.GetUserList()
 
 	c.JSON(200, gin.H{
 		"message": data,
@@ -25,7 +26,9 @@ func GetUserList(c *gin.Context) {
 // CreateUser
 // @Summary Add New User
 // @Tags User
-// @Param Name query string false "User Name"
+// @Param Name query string false "Name"
+// @Param Phone query string false "Mobile number"
+// @Param Email query string false "Email"
 // @Param Password query string false "Enter password"
 // @Param rePassword query string false "Enter password again"
 // @Success 200 {string} json{"code", "message"}
@@ -33,9 +36,28 @@ func GetUserList(c *gin.Context) {
 func CreateUser(c *gin.Context) {
 	user := models.UserBasic{}
 	user.Name = c.Query("Name")
+	user.Email = c.Query("Email")
+	user.Phone = c.Query("Phone")
 	password := c.Query("Password")
 	rePassword := c.Query("rePassword")
-	fmt.Println(password + " | " + rePassword)
+
+	checkUserExist := models.UserBasic{}
+	checkUserExist = models.FindUserByName(user.Name)
+	if checkUserExist.Name != "" {
+		c.JSON(-1, gin.H{
+			"message": "User Name existed!",
+		})
+		return
+	}
+	fmt.Println(user.Email)
+	_, err := govalidator.ValidateStruct(user)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": err,
+		})
+		return
+	}
+
 	if password != rePassword {
 		c.JSON(400, gin.H{
 			"message": "Password mismatch!",
@@ -45,7 +67,7 @@ func CreateUser(c *gin.Context) {
 	user.Password = password
 	models.CreateUser(user)
 	c.JSON(200, gin.H{
-		"message": "Create user success!",
+		"message": "User created!",
 	})
 }
 
@@ -77,6 +99,8 @@ func DeleteUser(c *gin.Context) {
 // @Param id formData string false "id"
 // @Param Name formData string false "Name"
 // @Param Password formData string false "Password"
+// @Param Phone formData string false "Phone"
+// @Param Email formData string false "Email"
 // @Success 200 {string} json{"code", "message"}
 // @Router /user/UpdateUser [post]
 func UpdateUser(c *gin.Context) {
@@ -85,6 +109,16 @@ func UpdateUser(c *gin.Context) {
 	user.ID = uint(id)
 	user.Name = c.PostForm("Name")
 	user.Password = c.PostForm("Password")
+	user.Phone = c.PostForm("Phone")
+	user.Email = c.PostForm("Email")
+
+	_, err := govalidator.ValidateStruct(user)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": err,
+		})
+		return
+	}
 	ret := models.UpdateUser(user)
 	if ret.Error != nil {
 		c.JSON(400, gin.H{

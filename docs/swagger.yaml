@@ -4,9 +4,17 @@ paths:
   /user/CreateUser:
     get:
       parameters:
-      - description: User Name
+      - description: Name
         in: query
         name: Name
+        type: string
+      - description: Mobile number
+        in: query
+        name: Phone
+        type: string
+      - description: Email
+        in: query
+        name: Email
         type: string
       - description: Enter password
         in: query
@@ -63,6 +71,14 @@ paths:
       - description: Password
         in: formData
         name: Password
+        type: string
+      - description: Phone
+        in: formData
+        name: Phone
+        type: string
+      - description: Email
+        in: formData
+        name: Email
         type: string
       responses:
         "200":

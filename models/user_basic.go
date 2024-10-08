@@ -12,8 +12,8 @@ type UserBasic struct {
 	gorm.Model
 	Name          string
 	Password      string
-	Phone         string
-	Email         string
+	Phone         string `valid:"matches(^1[3-9]{1}\\d{9}$)"`
+	Email         string `valid:"email"`
 	Identity      string
 	ClientIp      string
 	ClientPort    string
@@ -39,6 +39,24 @@ func GetUserList() []*UserBasic {
 	return data
 }
 
+func FindUserByName(name string) UserBasic {
+	user := UserBasic{}
+	utils.DB.Where("Name=?", name).Find(&user)
+	return user
+}
+
+func FindUserByPhone(phone string) UserBasic {
+	user := UserBasic{}
+	utils.DB.Where("Phone=?", phone).Find(&user)
+	return user
+}
+
+func FindUserByEmail(email string) UserBasic {
+	user := UserBasic{}
+	utils.DB.Where("Email=?", email).Find(&user)
+	return user
+}
+
 func CreateUser(user UserBasic) *gorm.DB {
 	return utils.DB.Create(&user)
 }
@@ -48,5 +66,10 @@ func DeleteUser(user UserBasic) *gorm.DB {
 }
 
 func UpdateUser(user UserBasic) *gorm.DB {
-	return utils.DB.Where("id=?", user.ID).Model(&user).Updates(UserBasic{Name: user.Name, Password: user.Password})
+	return utils.DB.Where("id=?", user.ID).Model(&user).Updates(UserBasic{
+		Name:     user.Name,
+		Password: user.Password,
+		Phone:    user.Phone,
+		Email:    user.Email,
+	})
 }
